@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FileStatus, FileData } from '../types';
@@ -84,8 +83,14 @@ const DashboardPage: React.FC = () => {
 
     return (
         <div className="container mx-auto p-4 sm:p-6 lg:p-8">
-            <h2 className="text-2xl font-bold text-gray-800 mb-1">داشبورد ناظر</h2>
-            <p className="text-gray-500 mb-6">فهرست فایل‌های بارگذاری شده را مدیریت کنید.</p>
+            <div className="bg-gradient-to-r from-blue-500 via-cyan-400 to-yellow-300 p-6 md:p-8 rounded-2xl shadow-lg mb-8 text-white relative overflow-hidden">
+                <div className="absolute top-0 right-0 -mt-16 -mr-16 w-48 h-48 bg-white/10 rounded-full" aria-hidden="true"></div>
+                <div className="absolute bottom-0 left-0 -mb-8 -ml-8 w-32 h-32 bg-white/10 rounded-full" aria-hidden="true"></div>
+                <div className="relative z-10">
+                    <h2 className="text-3xl font-bold">داشبورد ناظر</h2>
+                    <p className="mt-2 opacity-90">فهرست فایل‌های بارگذاری شده را مدیریت کنید.</p>
+                </div>
+            </div>
 
             <StatCard stats={stats} />
 
