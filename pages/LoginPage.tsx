@@ -1,7 +1,7 @@
 
 import React, { useState, FormEvent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../App';
+import { useAuth } from '../contexts/AuthContext';
 import { LogoIcon } from '../components/Icons';
 
 const LoginPage: React.FC = () => {

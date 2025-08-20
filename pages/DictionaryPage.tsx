@@ -2,48 +2,8 @@
 import React, { useState, useMemo } from 'react';
 import { MOCK_DICTIONARY_TERMS } from '../constants';
 import { DictionaryTerm } from '../types';
-import { SearchIcon, ChevronDownIcon, CheckIcon, XIcon } from '../components/Icons';
-
-const DictionaryTermCard: React.FC<{ term: DictionaryTerm }> = ({ term }) => {
-    const [isEditing, setIsEditing] = useState(false);
-    const [description, setDescription] = useState(term.description);
-
-    return (
-        <div className="bg-white p-4 rounded-lg border flex flex-col justify-between">
-            <div>
-                <div className="flex justify-between items-start mb-2">
-                    <h3 className="font-bold text-gray-800">{term.term}</h3>
-                    <span className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full">{term.subCollection}</span>
-                </div>
-                {isEditing ? (
-                    <textarea 
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        className="w-full text-sm text-gray-600 p-2 border rounded-md resize-none focus:ring-teal-500 focus:border-teal-500"
-                        rows={3}
-                    />
-                ) : (
-                    <p className="text-sm text-gray-600 h-16">{description}</p>
-                )}
-            </div>
-            <div className="mt-4 flex justify-end">
-                {isEditing ? (
-                    <div className="flex gap-2">
-                        <button onClick={() => setIsEditing(false)} className="p-2 text-gray-500 hover:bg-gray-100 rounded-full"><XIcon className="w-5 h-5"/></button>
-                        <button onClick={() => setIsEditing(false)} className="p-2 text-green-500 hover:bg-green-50 rounded-full"><CheckIcon className="w-5 h-5"/></button>
-                    </div>
-                ) : (
-                    <button 
-                        onClick={() => setIsEditing(true)} 
-                        className="text-sm text-teal-600 font-semibold hover:underline"
-                    >
-                        ویرایش
-                    </button>
-                )}
-            </div>
-        </div>
-    );
-}
+import { SearchIcon, ChevronDownIcon } from '../components/Icons';
+import DictionaryTermCard from '../components/dictionary/DictionaryTermCard';
 
 const DictionaryPage: React.FC = () => {
     const [terms] = useState<DictionaryTerm[]>(MOCK_DICTIONARY_TERMS);
