@@ -1,8 +1,7 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MOCK_FILES } from '../../constants';
-import { ArrowRightIcon } from '../Icons';
+import { ArrowRightIcon, ProcessingIcon, InfoIcon, FileTypeIcon, FolderIcon } from '../Icons';
 import { FileData } from '../../types';
 
 interface UploadStep1Props {
@@ -87,20 +86,34 @@ const UploadStep1: React.FC<UploadStep1Props> = ({ onNext }) => {
                     <div className="grid grid-cols-2 gap-4">
                          <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="fileType">نوع فایل</label>
-                            <select id="fileType" name="fileType" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-teal-500 focus:border-teal-500 bg-white"><option>صورت جلسه</option><option>درس آموخته</option></select>
+                            <div className="relative">
+                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400">
+                                    <FileTypeIcon className="w-5 h-5"/>
+                                </div>
+                                <select id="fileType" name="fileType" className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-teal-500 focus:border-teal-500 bg-white appearance-none"><option>صورت جلسه</option><option>درس آموخته</option></select>
+                            </div>
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="subCollection">زیرمجموعه</label>
-                            <select id="subCollection" name="subCollection" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-teal-500 focus:border-teal-500 bg-white"><option>فنی</option><option>مالی</option><option>منابع انسانی</option></select>
+                            <div className="relative">
+                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400">
+                                    <FolderIcon className="w-5 h-5"/>
+                                </div>
+                                <select id="subCollection" name="subCollection" className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-teal-500 focus:border-teal-500 bg-white appearance-none"><option>فنی</option><option>مالی</option><option>منابع انسانی</option></select>
+                            </div>
                         </div>
                     </div>
-                    <button type="submit" className="w-full bg-teal-500 text-white font-bold py-2.5 px-4 rounded-lg hover:bg-teal-600 transition shadow-md">
-                        شروع پردازش
+                    <button type="submit" className="w-full bg-teal-500 text-white font-bold py-2.5 px-4 rounded-lg hover:bg-teal-600 transition shadow-md flex items-center justify-center gap-2">
+                        <ProcessingIcon className="w-5 h-5" />
+                        <span>شروع پردازش</span>
                     </button>
                 </form>
             </div>
             <div className="w-full md:w-72 bg-teal-50 p-6 rounded-2xl border border-teal-200 self-start">
-                 <h4 className="font-bold text-teal-800 mb-4">نکاتی برای بهبود کیفیت</h4>
+                 <h4 className="font-bold text-teal-800 mb-4 flex items-center gap-2">
+                    <InfoIcon className="w-5 h-5"/>
+                    <span>نکاتی برای بهبود کیفیت</span>
+                 </h4>
                  <ul className="space-y-3 text-sm text-teal-700 list-disc list-inside">
                      <li>از فایل‌های صوتی با کیفیت بالا و بدون نویز استفاده کنید.</li>
                      <li>صدای گوینده باید واضح و بلند باشد.</li>

@@ -6,34 +6,36 @@ interface IndividualStatCardProps {
     title: string;
     count: number;
     icon: React.ReactElement<{ className?: string }>;
-    color: 'blue' | 'yellow' | 'cyan' | 'green' | 'red';
+    color: 'orange' | 'yellow' | 'blue' | 'green' | 'red';
+    status: string;
+    onFilterChange: (status: string) => void;
 }
 
 const COLORS = {
-    cyan: { light: 'from-cyan-50 to-teal-100', main: 'text-cyan-700', iconBg: 'bg-cyan-100' },
-    yellow: { light: 'from-yellow-50 to-amber-100', main: 'text-amber-700', iconBg: 'bg-amber-100' },
-    blue: { light: 'from-blue-50 to-indigo-100', main: 'text-blue-700', iconBg: 'bg-blue-100' },
-    green: { light: 'from-green-50 to-emerald-100', main: 'text-green-700', iconBg: 'bg-green-100' },
-    red: { light: 'from-red-50 to-rose-100', main: 'text-red-700', iconBg: 'bg-red-100' },
+    orange: { light: 'bg-orange-50', main: 'text-orange-600', iconBg: 'bg-orange-100' },
+    yellow: { light: 'bg-yellow-50', main: 'text-yellow-600', iconBg: 'bg-yellow-100' },
+    blue: { light: 'bg-blue-50', main: 'text-blue-600', iconBg: 'bg-blue-100' },
+    green: { light: 'bg-gradient-to-br from-green-50 to-white', main: 'text-green-600', iconBg: 'bg-green-100' },
+    red: { light: 'bg-red-50', main: 'text-red-600', iconBg: 'bg-red-100' },
 };
 
-const IndividualStatCard: React.FC<IndividualStatCardProps> = ({ title, count, icon, color }) => {
+const IndividualStatCard: React.FC<IndividualStatCardProps> = ({ title, count, icon, color, status, onFilterChange }) => {
     const theme = COLORS[color];
     const coloredIcon = React.cloneElement(icon, { className: `w-7 h-7 ${theme.main}` });
 
     return (
-        <div className={`p-4 rounded-2xl shadow-sm bg-gradient-to-br ${theme.light}`}>
+        <div className={`p-4 rounded-2xl shadow-sm ${theme.light} border border-gray-100/50`}>
             <div className="flex items-center gap-4">
-                 <div className={`p-3 rounded-full ${theme.iconBg}`}>
+                 <div className={`p-3 rounded-xl ${theme.iconBg}`}>
                     {coloredIcon}
                 </div>
                 <p className="font-semibold text-gray-700 text-base">{title}</p>
             </div>
             <div className="mt-4 flex items-end justify-between">
                 <p className="text-4xl font-bold text-gray-800">{count}</p>
-                <a href="#" className="text-sm font-semibold text-gray-500 hover:text-gray-900 transition whitespace-nowrap">
+                <button onClick={() => onFilterChange(status)} className="text-sm font-semibold text-gray-500 hover:text-gray-900 transition whitespace-nowrap">
                     مشاهده جزئیات &gt;
-                </a>
+                </button>
             </div>
         </div>
     );
@@ -48,15 +50,16 @@ interface StatCardsContainerProps {
         approved: number;
         rejected: number;
     };
+    onFilterChange: (status: string) => void;
 }
 
-const StatCard: React.FC<StatCardsContainerProps> = ({ stats }) => (
+const StatCard: React.FC<StatCardsContainerProps> = ({ stats, onFilterChange }) => (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-        <IndividualStatCard title="کل فایل ها" count={stats.total} icon={<DashboardIcon />} color="cyan" />
-        <IndividualStatCard title={FileStatus.Pending} count={stats.pending} icon={<ClockIcon />} color="yellow" />
-        <IndividualStatCard title={FileStatus.Processing} count={stats.processing} icon={<ProcessingIcon />} color="blue" />
-        <IndividualStatCard title={FileStatus.Approved} count={stats.approved} icon={<CheckIcon />} color="green" />
-        <IndividualStatCard title={FileStatus.Rejected} count={stats.rejected} icon={<XIcon />} color="red" />
+        <IndividualStatCard title="کل فایل ها" count={stats.total} icon={<DashboardIcon />} color="orange" status="" onFilterChange={onFilterChange} />
+        <IndividualStatCard title={FileStatus.Pending} count={stats.pending} icon={<ClockIcon />} color="yellow" status={FileStatus.Pending} onFilterChange={onFilterChange} />
+        <IndividualStatCard title={FileStatus.Processing} count={stats.processing} icon={<ProcessingIcon />} color="blue" status={FileStatus.Processing} onFilterChange={onFilterChange} />
+        <IndividualStatCard title={FileStatus.Approved} count={stats.approved} icon={<CheckIcon />} color="green" status={FileStatus.Approved} onFilterChange={onFilterChange} />
+        <IndividualStatCard title={FileStatus.Rejected} count={stats.rejected} icon={<XIcon />} color="red" status={FileStatus.Rejected} onFilterChange={onFilterChange} />
     </div>
 );
 

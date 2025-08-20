@@ -1,8 +1,7 @@
-
 import React, { useState, useMemo } from 'react';
 import { MOCK_DICTIONARY_TERMS } from '../constants';
 import { DictionaryTerm } from '../types';
-import { SearchIcon, ChevronDownIcon } from '../components/Icons';
+import { SearchIcon, ChevronDownIcon, FolderIcon, ArrowRightIcon, ArrowLeftIcon } from '../components/Icons';
 import DictionaryTermCard from '../components/dictionary/DictionaryTermCard';
 
 const DictionaryPage: React.FC = () => {
@@ -41,15 +40,18 @@ const DictionaryPage: React.FC = () => {
                         <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                     </div>
                     <div className="relative w-full md:w-56">
+                         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400">
+                            <FolderIcon className="w-5 h-5" />
+                        </div>
                          <select 
-                            className="w-full appearance-none bg-gray-50 border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded-lg focus:outline-none focus:bg-white focus:border-teal-500"
+                            className="w-full appearance-none bg-gray-50 border border-gray-300 text-gray-700 py-2 pl-10 pr-10 rounded-lg focus:outline-none focus:bg-white focus:border-teal-500"
                             value={subCollectionFilter}
                             onChange={(e) => setSubCollectionFilter(e.target.value)}
                         >
                             <option>همه زیرمجموعه ها</option>
                             {[...new Set(terms.map(t => t.subCollection))].map(sc => <option key={sc} value={sc}>{sc}</option>)}
                         </select>
-                        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center px-2 text-gray-700">
+                        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-gray-700">
                            <ChevronDownIcon className="w-4 h-4" />
                         </div>
                     </div>
@@ -66,9 +68,10 @@ const DictionaryPage: React.FC = () => {
                         <button 
                             onClick={() => setCurrentPage(p => Math.max(1, p - 1))} 
                             disabled={currentPage === 1}
-                            className="px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md border hover:bg-teal-500 hover:text-white disabled:opacity-50"
+                            className="px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md border hover:bg-teal-500 hover:text-white disabled:opacity-50 flex items-center gap-2"
                         >
-                            قبلی
+                            <ArrowRightIcon className="w-4 h-4" />
+                            <span>قبلی</span>
                         </button>
                         
                         <span className="px-4 py-2 mx-1 text-gray-700">
@@ -78,9 +81,10 @@ const DictionaryPage: React.FC = () => {
                         <button 
                             onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
                             disabled={currentPage === totalPages}
-                            className="px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md border hover:bg-teal-500 hover:text-white disabled:opacity-50"
+                            className="px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md border hover:bg-teal-500 hover:text-white disabled:opacity-50 flex items-center gap-2"
                         >
-                            بعدی
+                            <span>بعدی</span>
+                            <ArrowLeftIcon className="w-4 h-4" />
                         </button>
                     </div>
                 )}

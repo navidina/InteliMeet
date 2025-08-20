@@ -26,25 +26,25 @@ const UploadPage: React.FC = () => {
         setCurrentStep(prev => prev > 0 ? prev - 1 : prev);
     }, []);
 
-    const handleFinish = useCallback(() => {
-        if (uploadData && user) {
+    const handleFinish = useCallback((finalData: Partial<FileData>) => {
+        if (finalData && user) {
             const newFile: FileData = {
                 id: `file_${Date.now()}`,
-                name: uploadData.name ?? 'بدون نام',
+                name: finalData.name ?? 'بدون نام',
                 uploadDate: new Intl.DateTimeFormat('fa-IR-u-nu-latn', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date()),
-                type: uploadData.type ?? 'نامشخص',
-                subCollection: uploadData.subCollection ?? 'نامشخص',
+                type: finalData.type ?? 'نامشخص',
+                subCollection: finalData.subCollection ?? 'نامشخص',
                 status: FileStatus.Approved,
                 uploader: user.name,
-                originalText: uploadData.originalText,
-                editedText: uploadData.editedText,
-                extractedPhrases: uploadData.extractedPhrases,
+                originalText: finalData.originalText,
+                editedText: finalData.editedText,
+                extractedPhrases: finalData.extractedPhrases,
                 duration: Math.floor(Math.random() * 500) + 100
             };
             addFile(newFile);
         }
         navigate('/dashboard');
-    }, [navigate, uploadData, addFile, user]);
+    }, [navigate, addFile, user]);
 
     const renderStep = () => {
         switch (currentStep) {

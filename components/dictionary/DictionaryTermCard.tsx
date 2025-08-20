@@ -1,7 +1,6 @@
-
 import React, { useState } from 'react';
 import { DictionaryTerm } from '../../types';
-import { CheckIcon, XIcon } from '../Icons';
+import { CheckIcon, XIcon, EditIcon } from '../Icons';
 
 const DictionaryTermCard: React.FC<{ term: DictionaryTerm }> = ({ term }) => {
     const [isEditing, setIsEditing] = useState(false);
@@ -45,9 +44,10 @@ const DictionaryTermCard: React.FC<{ term: DictionaryTerm }> = ({ term }) => {
                 ) : (
                     <button 
                         onClick={() => setIsEditing(true)} 
-                        className="text-sm text-teal-600 font-semibold hover:underline"
+                        className="text-sm text-teal-600 font-semibold hover:underline flex items-center gap-1"
                     >
-                        ویرایش
+                        <EditIcon className="w-4 h-4" />
+                        <span>ویرایش</span>
                     </button>
                 )}
             </div>

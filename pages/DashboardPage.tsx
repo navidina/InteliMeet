@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { FileStatus, FileData } from '../types';
 import { STATUS_STYLES } from '../constants';
 import { useFiles } from '../contexts/FileContext';
-import { SearchIcon, ChevronDownIcon, EyeIcon, DownloadIcon } from '../components/Icons';
+import { SearchIcon, ChevronDownIcon, EyeIcon, DownloadIcon, PlusIcon, FilterIcon, FolderIcon, FileTypeIcon, SortIcon } from '../components/Icons';
 import StatCard from '../components/dashboard/StatCard';
 import FileDetailsModal from '../components/dashboard/FileDetailsModal';
 
@@ -12,17 +12,21 @@ const FilterDropdown: React.FC<{
     onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
     options: string[];
     defaultLabel: string;
-}> = ({ value, onChange, options, defaultLabel }) => (
+    icon: React.ReactElement<{ className?: string }>;
+}> = ({ value, onChange, options, defaultLabel, icon }) => (
     <div className="relative">
+        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400">
+            {React.cloneElement(icon, { className: 'w-5 h-5' })}
+        </div>
         <select 
-            className="w-full appearance-none bg-gray-50 border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded-lg focus:outline-none focus:bg-white focus:border-teal-500"
+            className="w-full appearance-none bg-gray-50 border border-gray-300 text-gray-700 py-2 pl-10 pr-10 rounded-lg focus:outline-none focus:bg-white focus:border-teal-500"
             value={value}
             onChange={onChange}
         >
             <option value="">{defaultLabel}</option>
             {options.map(opt => <option key={opt} value={opt}>{opt}</option>)}
         </select>
-        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center px-2 text-gray-700">
+        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-gray-700">
             <ChevronDownIcon className="w-4 h-4" />
         </div>
     </div>
@@ -83,16 +87,17 @@ const DashboardPage: React.FC = () => {
 
     return (
         <div className="container mx-auto p-4 sm:p-6 lg:p-8">
-            <div className="bg-gradient-to-r from-blue-500 via-cyan-400 to-yellow-300 p-6 md:p-8 rounded-2xl shadow-lg mb-8 text-white relative overflow-hidden">
-                <div className="absolute top-0 right-0 -mt-16 -mr-16 w-48 h-48 bg-white/10 rounded-full" aria-hidden="true"></div>
-                <div className="absolute bottom-0 left-0 -mb-8 -ml-8 w-32 h-32 bg-white/10 rounded-full" aria-hidden="true"></div>
+            <div className="p-6 md:p-8 rounded-2xl shadow-lg mb-8 text-white relative overflow-hidden bg-gradient-to-r from-blue-800 to-cyan-500">
+                <div className="absolute inset-y-0 right-0 w-2/5 bg-gradient-to-l from-yellow-400/80 to-transparent"></div>
+                <div className="absolute -top-4 -right-4 w-32 h-32 bg-white/10 rounded-full"></div>
+                <div className="absolute -bottom-8 -left-8 w-40 h-40 bg-white/10 rounded-full"></div>
                 <div className="relative z-10">
                     <h2 className="text-3xl font-bold">داشبورد ناظر</h2>
                     <p className="mt-2 opacity-90">فهرست فایل‌های بارگذاری شده را مدیریت کنید.</p>
                 </div>
             </div>
 
-            <StatCard stats={stats} />
+            <StatCard stats={stats} onFilterChange={setStatusFilter} />
 
             <div className="bg-white rounded-2xl shadow-lg p-6 mt-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 mb-4 items-center">
@@ -107,17 +112,18 @@ const DashboardPage: React.FC = () => {
                         <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                     </div>
                     
-                    <FilterDropdown defaultLabel="همه وضعیت ها" options={filterOptions.status} value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} />
-                    <FilterDropdown defaultLabel="همه انواع" options={filterOptions.type} value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)} />
-                    <FilterDropdown defaultLabel="همه زیرمجموعه ها" options={filterOptions.subCollection} value={subCollectionFilter} onChange={(e) => setSubCollectionFilter(e.target.value)} />
-                     <FilterDropdown defaultLabel="مرتب سازی" options={filterOptions.sort} value={sortOrder} onChange={(e) => setSortOrder(e.target.value)} />
+                    <FilterDropdown icon={<FilterIcon />} defaultLabel="همه وضعیت ها" options={filterOptions.status} value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} />
+                    <FilterDropdown icon={<FileTypeIcon />} defaultLabel="همه انواع" options={filterOptions.type} value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)} />
+                    <FilterDropdown icon={<FolderIcon />} defaultLabel="همه زیرمجموعه ها" options={filterOptions.subCollection} value={subCollectionFilter} onChange={(e) => setSubCollectionFilter(e.target.value)} />
+                     <FilterDropdown icon={<SortIcon />} defaultLabel="مرتب سازی" options={filterOptions.sort} value={sortOrder} onChange={(e) => setSortOrder(e.target.value)} />
 
 
                     <button
                         onClick={() => navigate('/upload')}
-                        className="bg-teal-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-teal-600 transition shadow w-full lg:col-start-6"
+                        className="bg-teal-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-teal-600 transition shadow w-full lg:col-start-6 flex items-center justify-center gap-2"
                     >
-                        بارگذاری فایل جدید
+                        <PlusIcon className="w-5 h-5" />
+                        <span>بارگذاری فایل جدید</span>
                     </button>
                 </div>
 
