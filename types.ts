@@ -1,6 +1,6 @@
 
 export enum FileStatus {
-  Pending = 'در انتظار',
+  Pending = 'در انتظار تایید',
   Processing = 'در حال پردازش',
   Approved = 'تایید شده',
   Rejected = 'رد شده',

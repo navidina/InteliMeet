@@ -1,6 +1,8 @@
+
 import React from 'react';
 import { CheckIcon, XIcon, DashboardIcon, ClockIcon, ProcessingIcon } from '../Icons';
 import { FileStatus } from '../../types';
+import { toPersianDigits } from '../../constants';
 
 interface IndividualStatCardProps {
     title: string;
@@ -32,7 +34,7 @@ const IndividualStatCard: React.FC<IndividualStatCardProps> = ({ title, count, i
                 <p className="font-semibold text-gray-700 text-base">{title}</p>
             </div>
             <div className="mt-4 flex items-end justify-between">
-                <p className="text-4xl font-bold text-gray-800">{count}</p>
+                <p className="text-4xl font-bold text-gray-800">{toPersianDigits(count)}</p>
                 <button onClick={() => onFilterChange(status)} className="text-sm font-semibold text-gray-500 hover:text-gray-900 transition whitespace-nowrap">
                     مشاهده جزئیات &gt;
                 </button>

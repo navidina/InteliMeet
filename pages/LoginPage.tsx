@@ -3,6 +3,7 @@ import React, { useState, FormEvent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { LogoIcon } from '../components/Icons';
+import { toPersianDigits } from '../constants';
 
 const LoginPage: React.FC = () => {
   const [username, setUsername] = useState('');
@@ -28,14 +29,14 @@ const LoginPage: React.FC = () => {
     login(username, () => navigate('/dashboard'));
   };
   
-  const formattedDate = new Intl.DateTimeFormat('fa-IR-u-nu-latn', {
+  const formattedDate = new Intl.DateTimeFormat('fa-IR', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
     weekday: 'long',
   }).format(time);
 
-  const formattedTime = time.toLocaleTimeString('fa-IR-u-nu-latn', {
+  const formattedTime = time.toLocaleTimeString('fa-IR', {
       hour: '2-digit',
       minute: '2-digit',
       second: '2-digit',
@@ -108,7 +109,7 @@ const LoginPage: React.FC = () => {
         </div>
       </main>
        <footer className="text-center py-4 text-gray-500 text-sm">
-            <p>2025 کلیه حقوق محفوظ است.</p>
+            <p>{toPersianDigits('2025')} کلیه حقوق محفوظ است.</p>
        </footer>
     </div>
   );

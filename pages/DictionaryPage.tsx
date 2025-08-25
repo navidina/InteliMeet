@@ -1,15 +1,22 @@
+
 import React, { useState, useMemo } from 'react';
-import { MOCK_DICTIONARY_TERMS } from '../constants';
+import { MOCK_DICTIONARY_TERMS, toPersianDigits } from '../constants';
 import { DictionaryTerm } from '../types';
-import { SearchIcon, ChevronDownIcon, FolderIcon, ArrowRightIcon, ArrowLeftIcon } from '../components/Icons';
+import { SearchIcon, ChevronDownIcon, FolderIcon, ArrowRightIcon, ArrowLeftIcon, PlusIcon } from '../components/Icons';
 import DictionaryTermCard from '../components/dictionary/DictionaryTermCard';
 
 const DictionaryPage: React.FC = () => {
-    const [terms] = useState<DictionaryTerm[]>(MOCK_DICTIONARY_TERMS);
+    const [terms, setTerms] = useState<DictionaryTerm[]>(MOCK_DICTIONARY_TERMS);
     const [searchTerm, setSearchTerm] = useState('');
     const [subCollectionFilter, setSubCollectionFilter] = useState('همه زیرمجموعه ها');
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 8;
+
+    const [isAddFormVisible, setAddFormVisible] = useState(false);
+    const [newTerm, setNewTerm] = useState('');
+    const [newDescription, setNewDescription] = useState('');
+    const [newSubCollection, setNewSubCollection] = useState('');
+    const [formError, setFormError] = useState('');
 
     const filteredTerms = useMemo(() => {
         return terms
@@ -23,6 +30,31 @@ const DictionaryPage: React.FC = () => {
     }, [filteredTerms, currentPage, itemsPerPage]);
 
     const totalPages = Math.ceil(filteredTerms.length / itemsPerPage);
+    
+    const handleAddTerm = () => {
+        if (!newTerm.trim() || !newDescription.trim() || !newSubCollection.trim()) {
+            setFormError('تمام فیلدها باید پر شوند.');
+            return;
+        }
+
+        const newTermData: DictionaryTerm = {
+            id: `term_${Date.now()}`,
+            term: newTerm,
+            description: newDescription,
+            subCollection: newSubCollection,
+        };
+
+        setTerms(prevTerms => [newTermData, ...prevTerms]);
+        setCurrentPage(1);
+        
+        // Reset form
+        setNewTerm('');
+        setNewDescription('');
+        setNewSubCollection('');
+        setAddFormVisible(false);
+        setFormError('');
+    };
+
 
     return (
         <div className="container mx-auto p-4 sm:p-6 lg:p-8">
@@ -55,7 +87,59 @@ const DictionaryPage: React.FC = () => {
                            <ChevronDownIcon className="w-4 h-4" />
                         </div>
                     </div>
+                    <button
+                        onClick={() => setAddFormVisible(!isAddFormVisible)}
+                        className="w-full md:w-auto flex items-center justify-center gap-2 bg-teal-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-teal-600 transition shadow"
+                    >
+                        <PlusIcon className="w-5 h-5" />
+                        <span>افزودن عبارت</span>
+                    </button>
                 </div>
+
+                {isAddFormVisible && (
+                    <div className="bg-gray-50 p-6 rounded-lg border mb-6 transition-all">
+                        <h3 className="font-bold text-lg mb-4">افزودن عبارت جدید</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input
+                                type="text"
+                                placeholder="عبارت"
+                                value={newTerm}
+                                onChange={(e) => setNewTerm(e.target.value)}
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-teal-500 focus:border-teal-500"
+                            />
+                             <select
+                                value={newSubCollection}
+                                onChange={(e) => setNewSubCollection(e.target.value)}
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white focus:ring-teal-500 focus:border-teal-500"
+                            >
+                                <option value="">انتخاب زیرمجموعه</option>
+                                {[...new Set(terms.map(t => t.subCollection))].map(sc => <option key={sc} value={sc}>{sc}</option>)}
+                            </select>
+                        </div>
+                         <textarea
+                            placeholder="توضیحات"
+                            value={newDescription}
+                            onChange={(e) => setNewDescription(e.target.value)}
+                            className="w-full mt-4 px-4 py-2 border border-gray-300 rounded-lg focus:ring-teal-500 focus:border-teal-500"
+                            rows={3}
+                        />
+                        {formError && <p className="text-red-500 text-sm mt-2">{formError}</p>}
+                        <div className="flex justify-end gap-4 mt-4">
+                            <button
+                                onClick={() => { setAddFormVisible(false); setFormError(''); }}
+                                className="px-6 py-2 rounded-lg bg-gray-200 text-gray-800 hover:bg-gray-300 transition"
+                            >
+                                لغو
+                            </button>
+                            <button
+                                onClick={handleAddTerm}
+                                className="px-6 py-2 rounded-lg bg-teal-500 text-white hover:bg-teal-600 transition font-semibold"
+                            >
+                                ذخیره
+                            </button>
+                        </div>
+                    </div>
+                )}
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     {paginatedTerms.map(term => (
@@ -75,7 +159,7 @@ const DictionaryPage: React.FC = () => {
                         </button>
                         
                         <span className="px-4 py-2 mx-1 text-gray-700">
-                            صفحه {currentPage} از {totalPages}
+                            صفحه {toPersianDigits(currentPage)} از {toPersianDigits(totalPages)}
                         </span>
 
                         <button 

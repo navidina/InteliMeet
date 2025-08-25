@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MOCK_FILES } from '../../constants';
@@ -5,10 +6,10 @@ import { ArrowRightIcon, ProcessingIcon, InfoIcon, FileTypeIcon, FolderIcon } fr
 import { FileData } from '../../types';
 
 interface UploadStep1Props {
-    onNext: (data: Partial<FileData>) => void;
+    onUpload: (data: Partial<FileData>) => void;
 }
 
-const UploadStep1: React.FC<UploadStep1Props> = ({ onNext }) => {
+const UploadStep1: React.FC<UploadStep1Props> = ({ onUpload }) => {
     const [fileName, setFileName] = useState<string | null>(null);
     const [dragActive, setDragActive] = useState(false);
     const navigate = useNavigate();
@@ -51,7 +52,7 @@ const UploadStep1: React.FC<UploadStep1Props> = ({ onNext }) => {
             editedText: MOCK_FILES[2].originalText,
             extractedPhrases: MOCK_FILES[2].extractedPhrases,
         };
-        onNext(data);
+        onUpload(data);
     };
 
     return (

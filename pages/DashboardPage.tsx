@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FileStatus, FileData } from '../types';
@@ -78,6 +79,14 @@ const DashboardPage: React.FC = () => {
         );
     };
 
+    const handleViewClick = (file: FileData) => {
+        if (file.status === FileStatus.Pending) {
+            navigate(`/review/${file.id}`);
+        } else {
+            setSelectedFile(file);
+        }
+    };
+
     const filterOptions = {
         status: Object.values(FileStatus),
         type: [...new Set(files.map(f => f.type))],
@@ -150,7 +159,12 @@ const DashboardPage: React.FC = () => {
                                     <td className="px-6 py-4">{file.subCollection}</td>
                                     <td className="px-6 py-4">{renderStatusBadge(file.status)}</td>
                                     <td className="px-6 py-4 flex items-center gap-x-3">
-                                        <button onClick={() => setSelectedFile(file)} className="text-gray-500 hover:text-teal-600 transition" title="مشاهده جزئیات">
+                                        <button 
+                                            onClick={() => handleViewClick(file)} 
+                                            className="text-gray-500 hover:text-teal-600 transition disabled:opacity-30 disabled:cursor-not-allowed" 
+                                            title="مشاهده جزئیات"
+                                            disabled={file.status === FileStatus.Processing}
+                                        >
                                             <EyeIcon className="w-5 h-5"/>
                                         </button>
                                         <button disabled={file.status !== FileStatus.Approved} className="text-gray-500 hover:text-blue-600 transition disabled:opacity-30 disabled:cursor-not-allowed" title="دانلود">

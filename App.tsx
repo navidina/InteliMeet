@@ -9,6 +9,7 @@ import UploadPage from './pages/UploadPage';
 import DictionaryPage from './pages/DictionaryPage';
 import MainLayout from './components/MainLayout';
 import ProtectedRoute from './components/auth/ProtectedRoute';
+import ReviewPage from './pages/ReviewPage';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
               <Route path="dashboard" element={<DashboardPage />} />
               <Route path="upload" element={<UploadPage />} />
               <Route path="dictionary" element={<DictionaryPage />} />
+              <Route path="review/:fileId" element={<ReviewPage />} />
             </Route>
           </Routes>
         </HashRouter>

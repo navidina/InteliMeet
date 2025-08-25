@@ -5,6 +5,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useClickOutside } from '../hooks/useClickOutside';
 import { DashboardIcon, UploadIcon, DictionaryIcon, UserIcon, LogoutIcon, LogoIcon, ChevronDownIcon } from './Icons';
 import LogoutModal from './LogoutModal';
+import { toPersianDigits } from '../constants';
 
 const ProfileDropdown: React.FC<{ user: NonNullable<ReturnType<typeof useAuth>['user']> }> = ({ user }) => (
     <div className="absolute left-0 mt-2 w-72 bg-white rounded-lg shadow-xl border border-gray-200 p-4 animate-fade-in-down z-50">
@@ -18,7 +19,7 @@ const ProfileDropdown: React.FC<{ user: NonNullable<ReturnType<typeof useAuth>['
             </div>
         </div>
         <div className="text-sm text-gray-700 mt-3 space-y-2">
-            <p><strong>کد پرسنلی:</strong> {user.employeeId}</p>
+            <p><strong>کد پرسنلی:</strong> {toPersianDigits(user.employeeId)}</p>
             <p><strong>دپارتمان:</strong> {user.department}</p>
         </div>
     </div>

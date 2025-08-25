@@ -1,9 +1,14 @@
 
 import React from 'react';
 import { CheckIcon } from '../Icons';
+import { toPersianDigits } from '../../constants';
 
-const VerticalStepper: React.FC<{ currentStep: number }> = ({ currentStep }) => {
-    const steps = ["بارگذاری فایل", "پردازش", "بازبینی نهایی"];
+interface VerticalStepperProps {
+    currentStep: number;
+    steps: string[];
+}
+
+const VerticalStepper: React.FC<VerticalStepperProps> = ({ currentStep, steps }) => {
     return (
         <div className="w-full lg:w-48 p-4 bg-white rounded-2xl shadow-lg">
             <div className="flex lg:flex-col justify-center gap-4 lg:gap-0">
@@ -11,7 +16,7 @@ const VerticalStepper: React.FC<{ currentStep: number }> = ({ currentStep }) => 
                     <React.Fragment key={index}>
                         <div className="flex flex-col lg:flex-row items-center gap-2 lg:gap-4 w-full">
                             <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 shrink-0 ${currentStep > index ? 'bg-teal-500 border-teal-500 text-white' : currentStep === index ? 'border-teal-500 text-teal-500' : 'border-gray-300 text-gray-400'}`}>
-                               {currentStep > index ? <CheckIcon className="w-6 h-6"/> : index + 1}
+                               {currentStep > index ? <CheckIcon className="w-6 h-6"/> : toPersianDigits(index + 1)}
                             </div>
                             <p className={`font-semibold text-center lg:text-right ${currentStep >= index ? 'text-teal-600' : 'text-gray-500'}`}>{step}</p>
                         </div>

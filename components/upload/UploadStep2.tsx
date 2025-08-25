@@ -1,7 +1,9 @@
+
 import React, { useState, useEffect } from 'react';
 import { FileData } from '../../types';
 import FullScreenEditModal from './FullScreenEditModal';
 import { RefreshCwIcon, TrashIcon, CheckIcon, ArrowRightIcon, EditIcon, FileTypeIcon, FolderIcon } from '../Icons';
+import { toPersianDigits } from '../../constants';
 
 interface UploadStep2Props {
     onNext: (data: Partial<FileData>) => void;
@@ -31,7 +33,7 @@ const UploadStep2: React.FC<UploadStep2Props> = ({ onNext, onBack, data }) => {
         <div className="flex-1 bg-white p-8 rounded-2xl shadow-lg">
             <div className="flex justify-between items-center mb-4">
                 <h3 className="font-bold text-lg">پردازش فایل و ویرایش متن</h3>
-                <span className="text-sm text-gray-500">{progress}%</span>
+                <span className="text-sm text-gray-500">{toPersianDigits(progress)}%</span>
             </div>
             <div className="w-full bg-gray-200 rounded-full h-2.5 mb-6"><div className="bg-teal-500 h-2.5 rounded-full transition-all duration-500" style={{ width: `${progress}%` }}></div></div>
             

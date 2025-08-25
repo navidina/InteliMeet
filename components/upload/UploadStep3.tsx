@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { FileData } from '../../types';
 import FullScreenEditModal from './FullScreenEditModal';
@@ -26,7 +27,7 @@ const UploadStep3: React.FC<UploadStep3Props> = ({ onBack, onFinish, data }) => 
             <div>
                 <h3 className="text-lg font-bold mb-2">صورتجلسه</h3>
                 <p className="text-gray-600 mb-1"><strong>موضوع:</strong> {data.name}</p>
-                <p className="text-gray-600 mb-4"><strong>تاریخ:</strong> {new Intl.DateTimeFormat('fa-IR-u-nu-latn').format(new Date())}</p>
+                <p className="text-gray-600 mb-4"><strong>تاریخ:</strong> {new Intl.DateTimeFormat('fa-IR').format(new Date())}</p>
                 <div className="whitespace-pre-wrap">{text}</div>
             </div>
         );

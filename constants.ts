@@ -1,6 +1,12 @@
 
 import { FileStatus, FileData, User, DictionaryTerm } from './types';
 
+export const toPersianDigits = (n: number | string): string => {
+    if (n === undefined || n === null) return '';
+    const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+    return String(n).replace(/[0-9]/g, (d) => persianDigits[parseInt(d, 10)]);
+};
+
 export const MOCK_USER: User = {
   name: 'محمد رضایی',
   role: 'ناظر',
