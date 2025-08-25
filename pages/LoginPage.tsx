@@ -1,4 +1,3 @@
-
 import React, { useState, FormEvent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
@@ -45,7 +44,7 @@ const LoginPage: React.FC = () => {
 
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-teal-50 to-white">
+    <div className="min-h-screen flex flex-col bg-slate-100">
         <header className="py-4 px-8 flex justify-between items-center text-gray-600">
             <div className="flex items-center gap-2">
                 <LogoIcon className="w-8 h-8"/>
@@ -56,7 +55,7 @@ const LoginPage: React.FC = () => {
             </div>
         </header>
       <main className="flex-grow flex items-center justify-center p-4">
-        <div className="w-full max-w-md bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg p-8 border border-gray-200">
+        <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8 border border-gray-200">
           <div className="text-center mb-6">
             <h2 className="text-2xl font-bold text-gray-800">ورود به سامانه</h2>
             <p className="text-gray-500 mt-2">
@@ -75,7 +74,7 @@ const LoginPage: React.FC = () => {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="نام کاربری را وارد کنید"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-teal-500 focus:border-teal-500 transition"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-sky-500 focus:border-sky-500 transition"
                 required
               />
             </div>
@@ -92,7 +91,7 @@ const LoginPage: React.FC = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="رمز عبور را وارد کنید"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-teal-500 focus:border-teal-500 transition"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-sky-500 focus:border-sky-500 transition"
                 required
               />
             </div>
@@ -101,7 +100,7 @@ const LoginPage: React.FC = () => {
 
             <button
               type="submit"
-              className="w-full bg-teal-500 text-white font-bold py-2.5 px-4 rounded-lg hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition shadow-md"
+              className="w-full bg-sky-500 text-white font-bold py-2.5 px-4 rounded-lg hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition shadow-md"
             >
               ورود
             </button>

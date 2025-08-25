@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { FileData } from '../../types';
 import FullScreenEditModal from './FullScreenEditModal';
@@ -34,12 +33,12 @@ const UploadStep3: React.FC<UploadStep3Props> = ({ onBack, onFinish, data }) => 
     };
 
     return (
-         <div className="flex-1 bg-white p-8 rounded-2xl shadow-lg">
+         <div className="flex-1 p-2">
              <h3 className="font-bold text-lg mb-6 text-center">بازبینی و تایید نهایی</h3>
              <div className="flex flex-col md:flex-row gap-8">
                  <div className="w-full md:w-1/3 md:border-l md:border-gray-200 md:pl-6">
                      <h4 className="font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                        <ClipboardListIcon className="w-5 h-5 text-teal-600"/>
+                        <ClipboardListIcon className="w-5 h-5 text-sky-600"/>
                         <span>مشخصات فایل</span>
                      </h4>
                      <div className="space-y-3 text-sm">
@@ -48,12 +47,12 @@ const UploadStep3: React.FC<UploadStep3Props> = ({ onBack, onFinish, data }) => 
                          <p><strong className="text-gray-600">زیر مجموعه:</strong> {data.subCollection}</p>
                      </div>
                       <h4 className="font-semibold text-gray-800 mt-8 mb-4 flex items-center gap-2">
-                        <TagIcon className="w-5 h-5 text-teal-600"/>
+                        <TagIcon className="w-5 h-5 text-sky-600"/>
                         <span>عبارات تخصصی استخراج شده</span>
                       </h4>
                      <div className="flex flex-wrap gap-2">
                          {data.extractedPhrases?.map((phrase: string) => (
-                            <span key={phrase} className="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-1.5 rounded-full">{phrase}</span>
+                            <span key={phrase} className="bg-sky-100 text-sky-800 text-xs font-medium px-2.5 py-1.5 rounded-full">{phrase}</span>
                          ))}
                      </div>
                  </div>
@@ -63,7 +62,7 @@ const UploadStep3: React.FC<UploadStep3Props> = ({ onBack, onFinish, data }) => 
                           {formatAsMeetingMinutes(editedText)}
                       </div>
                       <div className="mt-4">
-                        <button onClick={() => setIsEditModalOpen(true)} className="text-teal-600 font-semibold hover:underline flex items-center gap-2">
+                        <button onClick={() => setIsEditModalOpen(true)} className="text-sky-600 font-semibold hover:underline flex items-center gap-2">
                             <EditIcon className="w-4 h-4"/>
                             <span>ویرایش متن نهایی</span>
                         </button>
@@ -75,7 +74,7 @@ const UploadStep3: React.FC<UploadStep3Props> = ({ onBack, onFinish, data }) => 
                     <ArrowRightIcon className="w-4 h-4" />
                     <span>بازگشت به مرحله قبل</span>
                  </button>
-                 <button onClick={handleFinalFinish} className="bg-teal-500 text-white font-bold py-2.5 px-6 rounded-lg hover:bg-teal-600 transition shadow-md flex items-center gap-2">
+                 <button onClick={handleFinalFinish} className="bg-sky-500 text-white font-bold py-2.5 px-6 rounded-lg hover:bg-sky-600 transition shadow-md flex items-center gap-2">
                     <CheckIcon className="w-5 h-5" />
                     <span>تایید نهایی و اتمام</span>
                  </button>

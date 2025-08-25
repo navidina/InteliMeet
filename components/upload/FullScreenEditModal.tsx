@@ -39,7 +39,7 @@ const FullScreenEditModal: React.FC<FullScreenEditModalProps> = ({ isOpen, onClo
                 <textarea
                     value={text}
                     onChange={(e) => setText(e.target.value)}
-                    className="w-full flex-grow p-4 border border-gray-300 rounded-lg resize-none focus:ring-teal-500 focus:border-teal-500 text-base leading-relaxed"
+                    className="w-full flex-grow p-4 border border-gray-300 rounded-lg resize-none focus:ring-sky-500 focus:border-sky-500 text-base leading-relaxed"
                     placeholder="متن خود را اینجا ویرایش کنید..."
                 />
                 <DictionaryTool />
@@ -49,7 +49,7 @@ const FullScreenEditModal: React.FC<FullScreenEditModalProps> = ({ isOpen, onClo
                 <button onClick={onClose} className="text-gray-600 font-medium py-2 px-6 rounded-lg hover:bg-gray-100 transition">
                     لغو
                 </button>
-                <button onClick={handleSave} className="bg-teal-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-teal-600 transition">
+                <button onClick={handleSave} className="bg-sky-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-sky-600 transition">
                     ذخیره تغییرات
                 </button>
             </footer>

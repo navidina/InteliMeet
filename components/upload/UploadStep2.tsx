@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { FileData } from '../../types';
 import FullScreenEditModal from './FullScreenEditModal';
@@ -30,17 +29,17 @@ const UploadStep2: React.FC<UploadStep2Props> = ({ onNext, onBack, data }) => {
     };
 
     return (
-        <div className="flex-1 bg-white p-8 rounded-2xl shadow-lg">
+        <div className="flex-1 p-2">
             <div className="flex justify-between items-center mb-4">
                 <h3 className="font-bold text-lg">پردازش فایل و ویرایش متن</h3>
                 <span className="text-sm text-gray-500">{toPersianDigits(progress)}%</span>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-2.5 mb-6"><div className="bg-teal-500 h-2.5 rounded-full transition-all duration-500" style={{ width: `${progress}%` }}></div></div>
+            <div className="w-full bg-gray-200 rounded-full h-2.5 mb-6"><div className="bg-sky-500 h-2.5 rounded-full transition-all duration-500" style={{ width: `${progress}%` }}></div></div>
             
             {progress === 100 ? (
                 <>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
-                        <input name="name" value={localData.name || ''} onChange={handleChange} className="px-4 py-2 border border-gray-300 rounded-lg" />
+                        <input name="name" value={localData.name || ''} onChange={handleChange} className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-sky-500 focus:border-sky-500" />
                         <div className="relative">
                             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400">
                                 <FileTypeIcon className="w-5 h-5" />
@@ -62,7 +61,7 @@ const UploadStep2: React.FC<UploadStep2Props> = ({ onNext, onBack, data }) => {
                         </div>
                     </div>
                      <div className="mb-6">
-                         <button onClick={() => setIsEditModalOpen(true)} className="text-teal-600 font-semibold hover:underline flex items-center gap-2">
+                         <button onClick={() => setIsEditModalOpen(true)} className="text-sky-600 font-semibold hover:underline flex items-center gap-2">
                             <EditIcon className="w-4 h-4"/>
                             <span>ویرایش متن</span>
                         </button>
@@ -82,7 +81,7 @@ const UploadStep2: React.FC<UploadStep2Props> = ({ onNext, onBack, data }) => {
                                 <TrashIcon className="w-4 h-4" />
                                 <span>رد محتوا</span>
                             </button>
-                            <button onClick={() => onNext(localData)} className="bg-teal-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-teal-600 transition flex items-center gap-2">
+                            <button onClick={() => onNext(localData)} className="bg-sky-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-sky-600 transition flex items-center gap-2">
                                 <CheckIcon className="w-5 h-5" />
                                 <span>تایید اولیه و بازبینی</span>
                             </button>

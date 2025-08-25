@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useFiles } from '../contexts/FileContext';
@@ -66,7 +65,7 @@ const ReviewPage: React.FC = () => {
     }
     
     return (
-        <div className="container mx-auto p-4 sm:p-6 lg:p-8">
+        <div className="bg-white p-6 rounded-2xl shadow-lg">
             <div className="flex flex-col lg:flex-row gap-8 items-start">
                 <VerticalStepper currentStep={currentStep} steps={reviewSteps} />
                 <div className="w-full lg:flex-1">

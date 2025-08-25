@@ -28,7 +28,7 @@ const DictionaryTermCard: React.FC<{ term: DictionaryTerm }> = ({ term }) => {
                     <textarea 
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
-                        className="w-full text-sm text-gray-600 p-2 border rounded-md resize-none focus:ring-teal-500 focus:border-teal-500"
+                        className="w-full text-sm text-gray-600 p-2 border rounded-md resize-none focus:ring-sky-500 focus:border-sky-500"
                         rows={4}
                     />
                 ) : (
@@ -44,7 +44,7 @@ const DictionaryTermCard: React.FC<{ term: DictionaryTerm }> = ({ term }) => {
                 ) : (
                     <button 
                         onClick={() => setIsEditing(true)} 
-                        className="text-sm text-teal-600 font-semibold hover:underline flex items-center gap-1"
+                        className="text-sm text-sky-600 font-semibold hover:underline flex items-center gap-1"
                     >
                         <EditIcon className="w-4 h-4" />
                         <span>ویرایش</span>

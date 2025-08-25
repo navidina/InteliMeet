@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from 'react';
 import { MOCK_DICTIONARY_TERMS, toPersianDigits } from '../constants';
 import { DictionaryTerm } from '../types';
@@ -57,122 +56,120 @@ const DictionaryPage: React.FC = () => {
 
 
     return (
-        <div className="container mx-auto p-4 sm:p-6 lg:p-8">
-            <div className="bg-white rounded-2xl shadow-lg p-6 max-w-5xl mx-auto">
-                <h2 className="text-2xl font-bold text-gray-800 mb-4">لیست عبارات تخصصی</h2>
-                <div className="flex flex-col md:flex-row gap-4 mb-6">
-                    <div className="relative flex-grow">
+        <div className="bg-white rounded-2xl shadow-lg p-6">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">لیست عبارات تخصصی</h2>
+            <div className="flex flex-col md:flex-row gap-4 mb-6">
+                <div className="relative flex-grow">
+                    <input
+                        type="text"
+                        placeholder="جستجو بر اساس نام عبارت..."
+                        className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-sky-500 focus:border-sky-500"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                    <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                </div>
+                <div className="relative w-full md:w-56">
+                     <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400">
+                        <FolderIcon className="w-5 h-5" />
+                    </div>
+                     <select 
+                        className="w-full appearance-none bg-gray-50 border border-gray-300 text-gray-700 py-2 pl-10 pr-10 rounded-lg focus:outline-none focus:bg-white focus:border-sky-500"
+                        value={subCollectionFilter}
+                        onChange={(e) => setSubCollectionFilter(e.target.value)}
+                    >
+                        <option>همه زیرمجموعه ها</option>
+                        {[...new Set(terms.map(t => t.subCollection))].map(sc => <option key={sc} value={sc}>{sc}</option>)}
+                    </select>
+                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-gray-700">
+                       <ChevronDownIcon className="w-4 h-4" />
+                    </div>
+                </div>
+                <button
+                    onClick={() => setAddFormVisible(!isAddFormVisible)}
+                    className="w-full md:w-auto flex items-center justify-center gap-2 bg-sky-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-sky-600 transition shadow"
+                >
+                    <PlusIcon className="w-5 h-5" />
+                    <span>افزودن عبارت</span>
+                </button>
+            </div>
+
+            {isAddFormVisible && (
+                <div className="bg-gray-50 p-6 rounded-lg border mb-6 transition-all">
+                    <h3 className="font-bold text-lg mb-4">افزودن عبارت جدید</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <input
                             type="text"
-                            placeholder="جستجو بر اساس نام عبارت..."
-                            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-teal-500 focus:border-teal-500"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
+                            placeholder="عبارت"
+                            value={newTerm}
+                            onChange={(e) => setNewTerm(e.target.value)}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-sky-500 focus:border-sky-500"
                         />
-                        <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                    </div>
-                    <div className="relative w-full md:w-56">
-                         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400">
-                            <FolderIcon className="w-5 h-5" />
-                        </div>
-                         <select 
-                            className="w-full appearance-none bg-gray-50 border border-gray-300 text-gray-700 py-2 pl-10 pr-10 rounded-lg focus:outline-none focus:bg-white focus:border-teal-500"
-                            value={subCollectionFilter}
-                            onChange={(e) => setSubCollectionFilter(e.target.value)}
+                         <select
+                            value={newSubCollection}
+                            onChange={(e) => setNewSubCollection(e.target.value)}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white focus:ring-sky-500 focus:border-sky-500"
                         >
-                            <option>همه زیرمجموعه ها</option>
+                            <option value="">انتخاب زیرمجموعه</option>
                             {[...new Set(terms.map(t => t.subCollection))].map(sc => <option key={sc} value={sc}>{sc}</option>)}
                         </select>
-                        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-gray-700">
-                           <ChevronDownIcon className="w-4 h-4" />
-                        </div>
                     </div>
-                    <button
-                        onClick={() => setAddFormVisible(!isAddFormVisible)}
-                        className="w-full md:w-auto flex items-center justify-center gap-2 bg-teal-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-teal-600 transition shadow"
+                     <textarea
+                        placeholder="توضیحات"
+                        value={newDescription}
+                        onChange={(e) => setNewDescription(e.target.value)}
+                        className="w-full mt-4 px-4 py-2 border border-gray-300 rounded-lg focus:ring-sky-500 focus:border-sky-500"
+                        rows={3}
+                    />
+                    {formError && <p className="text-red-500 text-sm mt-2">{formError}</p>}
+                    <div className="flex justify-end gap-4 mt-4">
+                        <button
+                            onClick={() => { setAddFormVisible(false); setFormError(''); }}
+                            className="px-6 py-2 rounded-lg bg-gray-200 text-gray-800 hover:bg-gray-300 transition"
+                        >
+                            لغو
+                        </button>
+                        <button
+                            onClick={handleAddTerm}
+                            className="px-6 py-2 rounded-lg bg-sky-500 text-white hover:bg-sky-600 transition font-semibold"
+                        >
+                            ذخیره
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {paginatedTerms.map(term => (
+                    <DictionaryTermCard key={term.id} term={term} />
+                ))}
+            </div>
+
+            {totalPages > 1 && (
+                <div className="flex justify-center items-center mt-8">
+                    <button 
+                        onClick={() => setCurrentPage(p => Math.max(1, p - 1))} 
+                        disabled={currentPage === 1}
+                        className="px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md border hover:bg-sky-500 hover:text-white disabled:opacity-50 flex items-center gap-2"
                     >
-                        <PlusIcon className="w-5 h-5" />
-                        <span>افزودن عبارت</span>
+                        <ArrowRightIcon className="w-4 h-4" />
+                        <span>قبلی</span>
+                    </button>
+                    
+                    <span className="px-4 py-2 mx-1 text-gray-700">
+                        صفحه {toPersianDigits(currentPage)} از {toPersianDigits(totalPages)}
+                    </span>
+
+                    <button 
+                        onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                        disabled={currentPage === totalPages}
+                        className="px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md border hover:bg-sky-500 hover:text-white disabled:opacity-50 flex items-center gap-2"
+                    >
+                        <span>بعدی</span>
+                        <ArrowLeftIcon className="w-4 h-4" />
                     </button>
                 </div>
-
-                {isAddFormVisible && (
-                    <div className="bg-gray-50 p-6 rounded-lg border mb-6 transition-all">
-                        <h3 className="font-bold text-lg mb-4">افزودن عبارت جدید</h3>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <input
-                                type="text"
-                                placeholder="عبارت"
-                                value={newTerm}
-                                onChange={(e) => setNewTerm(e.target.value)}
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-teal-500 focus:border-teal-500"
-                            />
-                             <select
-                                value={newSubCollection}
-                                onChange={(e) => setNewSubCollection(e.target.value)}
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white focus:ring-teal-500 focus:border-teal-500"
-                            >
-                                <option value="">انتخاب زیرمجموعه</option>
-                                {[...new Set(terms.map(t => t.subCollection))].map(sc => <option key={sc} value={sc}>{sc}</option>)}
-                            </select>
-                        </div>
-                         <textarea
-                            placeholder="توضیحات"
-                            value={newDescription}
-                            onChange={(e) => setNewDescription(e.target.value)}
-                            className="w-full mt-4 px-4 py-2 border border-gray-300 rounded-lg focus:ring-teal-500 focus:border-teal-500"
-                            rows={3}
-                        />
-                        {formError && <p className="text-red-500 text-sm mt-2">{formError}</p>}
-                        <div className="flex justify-end gap-4 mt-4">
-                            <button
-                                onClick={() => { setAddFormVisible(false); setFormError(''); }}
-                                className="px-6 py-2 rounded-lg bg-gray-200 text-gray-800 hover:bg-gray-300 transition"
-                            >
-                                لغو
-                            </button>
-                            <button
-                                onClick={handleAddTerm}
-                                className="px-6 py-2 rounded-lg bg-teal-500 text-white hover:bg-teal-600 transition font-semibold"
-                            >
-                                ذخیره
-                            </button>
-                        </div>
-                    </div>
-                )}
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {paginatedTerms.map(term => (
-                        <DictionaryTermCard key={term.id} term={term} />
-                    ))}
-                </div>
-
-                {totalPages > 1 && (
-                    <div className="flex justify-center items-center mt-8">
-                        <button 
-                            onClick={() => setCurrentPage(p => Math.max(1, p - 1))} 
-                            disabled={currentPage === 1}
-                            className="px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md border hover:bg-teal-500 hover:text-white disabled:opacity-50 flex items-center gap-2"
-                        >
-                            <ArrowRightIcon className="w-4 h-4" />
-                            <span>قبلی</span>
-                        </button>
-                        
-                        <span className="px-4 py-2 mx-1 text-gray-700">
-                            صفحه {toPersianDigits(currentPage)} از {toPersianDigits(totalPages)}
-                        </span>
-
-                        <button 
-                            onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-                            disabled={currentPage === totalPages}
-                            className="px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md border hover:bg-teal-500 hover:text-white disabled:opacity-50 flex items-center gap-2"
-                        >
-                            <span>بعدی</span>
-                            <ArrowLeftIcon className="w-4 h-4" />
-                        </button>
-                    </div>
-                )}
-            </div>
+            )}
         </div>
     );
 };

@@ -1,4 +1,3 @@
-
 import { FileStatus, FileData, User, DictionaryTerm } from './types';
 
 export const toPersianDigits = (n: number | string): string => {
@@ -77,10 +76,10 @@ export const MOCK_FILES: FileData[] = [
 
 
 export const STATUS_STYLES: { [key in FileStatus]: { bg: string; text: string; dot: string } } = {
-  [FileStatus.Approved]: { bg: 'bg-green-100', text: 'text-green-800', dot: 'bg-green-500' },
-  [FileStatus.Pending]: { bg: 'bg-yellow-100', text: 'text-yellow-800', dot: 'bg-yellow-500' },
-  [FileStatus.Processing]: { bg: 'bg-blue-100', text: 'text-blue-800', dot: 'bg-blue-500' },
-  [FileStatus.Rejected]: { bg: 'bg-red-100', text: 'text-red-800', dot: 'bg-red-500' },
+  [FileStatus.Approved]: { bg: 'bg-green-100', text: 'text-green-700', dot: 'bg-green-500' },
+  [FileStatus.Pending]: { bg: 'bg-yellow-100', text: 'text-yellow-700', dot: 'bg-yellow-500' },
+  [FileStatus.Processing]: { bg: 'bg-sky-100', text: 'text-sky-700', dot: 'bg-sky-500' },
+  [FileStatus.Rejected]: { bg: 'bg-red-100', text: 'text-red-700', dot: 'bg-red-500' },
 };
 
 
